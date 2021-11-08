@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 class MainActivity : AppCompatActivity() {
 
     val REQUEST_CODE_UPDATE_LOCATION = 42
+    val uselessVariable =true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
