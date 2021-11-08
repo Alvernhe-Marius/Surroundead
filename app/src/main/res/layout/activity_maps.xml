@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/my_dark_primary_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/vibreButton"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Vibre"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            />
+
+        <Button
+            android:id="@+id/zoneJeuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZoneJeu"
+            android:textColor="@color/white"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            />
+
+        <Button
+            android:id="@+id/resetZoneJeuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/white"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/zoomOnMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/my_orange"
+        android:textColor="@color/my_dark_primary_color"
+        android:text="recentrer"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:text="coordonée"
+        android:textColor="@color/my_orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
