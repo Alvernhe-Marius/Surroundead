@@ -210,7 +210,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-
+    /*
+    @param position : contient la latitude et la longitude de la position où il faut placer un marker.
+    @param label : donne un tag à ton marker pour le défférencier
+     */
     fun putMarkerOnMap(position: LatLng, label: String) {
         if (marker == null) {
             marker = myMap?.addMarker(
@@ -225,10 +228,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         myMap?.moveCamera(CameraUpdateFactory.newLatLng(position))
     }
 
+    /*
+    This function check if the user accept permissions for us to use Geolocalisation
+    this function will return a boolean
+    //true: if we have permission
+    //false if not
+     */
     private fun CheckPermission(): Boolean {
-        //this function will return a boolean
-        //true: if we have permission
-        //false if not
         if (
             ActivityCompat.checkSelfPermission(
                 this,
@@ -245,6 +251,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return false
     }
 
+    // demande la permission
     fun RequestPermission() {
         //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
         ActivityCompat.requestPermissions(
@@ -257,6 +264,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         )
     }
 
+    // regarde si la localisaiton est activée
     fun isLocationEnabled(): Boolean {
         //this function will return to us the state of the location service
         //if the gps or the network provider is enabled then it will return true otherwise it will return false
@@ -265,6 +273,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             LocationManager.NETWORK_PROVIDER
         )
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -285,7 +294,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
+    // function ou on "s'abonne" àla localisation
     @SuppressLint("MissingPermission")
     fun GPSUpdateLocation() {
         if (!CheckPermission()) {
@@ -300,6 +309,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
                 GPSLocationCallback = object : LocationCallback() {
+                    // on entre dans cette fonction a chaque fois que la position change
                     override fun onLocationResult(loc: LocationResult) {
                         findViewById<TextView>(R.id.textView).text =
                             loc.lastLocation.latitude.toString() + "," + loc.lastLocation.longitude.toString()
@@ -319,9 +329,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                 }
 
+                // on s'abonne à la position
                 getGPSLocationClient().requestLocationUpdates(
-                    locationRequest,
-                    GPSLocationCallback,
+                    locationRequest,        // parametres (fréquence etc... )
+                    GPSLocationCallback,    // Ce que tu dois faire si la localisation change
                     null /* Looper */
                 )
 
@@ -329,6 +340,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
 
     fun isInZoneDeJeu(): Boolean {
         var conditionPourEnvoyerUnefoisSeulement = true
@@ -358,6 +370,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onPause()
         if (GPSLocationClient != null) {
             if (GPSLocationCallback != null) {
+                // on se désabonne de la localisation
                 GPSLocationClient!!.removeLocationUpdates(GPSLocationCallback)
             }
             GPSLocationCallback = null
@@ -367,6 +380,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
+        // on se ré-abonne
         GPSUpdateLocation()
     }
 
